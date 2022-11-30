@@ -5,6 +5,9 @@ import { from } from 'rxjs';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { TokenService } from 'src/app/servicios/token.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FirebaseErrorsServiceService } from 'src/app/servicios/firebase-errors-service.service';
+
 
 @Component({
   selector: 'app-login',
@@ -12,44 +15,42 @@ import { TokenService } from 'src/app/servicios/token.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   isLogged = false;
   isLoginFail = false; 
-  loginUsuario!: LoginUsuario;
-  nombreUsuario!: string;
-  password!: string;
-  roles: string[] = [];
-  errMsg!: string;
+  // loginUsuario!: LoginUsuario;
+  // nombreUsuario!: string;
+  // password!: string;
+  // roles: string[] = [];
+  // errMsg!: string;
 
+  loginForm: FormGroup;
+  
 
-  constructor(private tokenService:TokenService, private authService:AuthService, private router:Router) {
-
+  constructor(private formBuilder:FormBuilder, private ngFireAuth: AngularFireAuth,  
+    private router:Router, private fbError:FirebaseErrorsServiceService) {
+      this.loginForm = formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+      })
    }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-      this.isLoginFail = false; //ver si se realmente hace falta
-      this.roles = this.tokenService.getAuthorities();
-    }
   }
 
-  onLogin(): void{
-    this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password); 
-    this.authService.login(this.loginUsuario).subscribe(data =>{
-        this.isLogged = true;
-        this.isLoginFail = false;
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUserName(data.nombreUsuario);
-        this.tokenService.setAuthorities(data.authorities);
-        this.roles = data.authorities;
-        this.router.navigate([''])
-      }, err =>{
-        this.isLogged = false;
-        this.isLoginFail = true;
-        this.errMsg = err.error.mensaje;
-        console.log(this.errMsg);
-        
-      })
+  login(): void{
+    let emailIngresado = this.loginForm.value.email;
+    let passIngresada = this.loginForm.value.password;
+    //console.log(emailIngresado, passIngresada);
+    //this.cargando = true;
+    this.ngFireAuth.signInWithEmailAndPassword(emailIngresado, passIngresada).then(() => {
+      console.log("inicio exitoso"); //usar con then((user)...
+      this.router.navigate(['']);
+    }) .catch((error) =>{
+      //this.cargando = false;
+      console.log(error);
+      //this.toastr.error(this.fbError.response(error.code), 'ERROR')
+    })
   }
 
 }

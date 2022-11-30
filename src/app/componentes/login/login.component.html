@@ -8,15 +8,15 @@
           alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
 
           <!-- ingreso con redes sociales -->
-
           <!-- Nombre usuario input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="nombreUsuario">Nombre de Usuario</label>
-            <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control form-control-lg"
-              placeholder="Ingresar nombre de usuario" [(ngModel)]="nombreUsuario" required />
+            <input type="email" id="nombreUsuario" name="nombreUsuario" class="form-control form-control-lg"
+              placeholder="Ingresar nombre de usuario" formControlName="email"/>
             <!-- formControlName="email" [ngClass]="{'is-invalid':Email?.errors && Email?.touched, 'is-valid':!Email?.errors && Email?.touched }"
               <div *ngIf="Email?.errors && Email?.touched">
                 <p *ngIf="Email?.hasError('required')" class="text-danger">
@@ -32,7 +32,8 @@
           <div class="form-outline mb-3">
             <label class="form-label" for="password">Contraseña</label>
             <input type="password" id="password" name="password" class="form-control form-control-lg"
-              placeholder="Ingresar contraseña" [(ngModel)]="password" required />
+              placeholder="Ingresar contraseña" formControlName="password"  />
+
             <!-- <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" 
               formControlName="password" [ngClass]="{'is-invalid':password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched }" />
               <div *ngIf="Password?.errors && Password?.touched">

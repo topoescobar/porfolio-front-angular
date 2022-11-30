@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+
 
 import { AppComponent } from './app.component';
 import { PortadaComponent } from './componentes/portada/portada.component';
@@ -20,6 +22,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { interceptorProvider } from './servicios/interceptor.service';
 import { NuevaExperienciaComponent } from './componentes/portafolio/nueva-experiencia/nueva-experiencia.component';
 import { EditarExperienciaComponent } from './componentes/portafolio/editar-experiencia/editar-experiencia.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { EditarExperienciaComponent } from './componentes/portafolio/editar-expe
     }),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [interceptorProvider], //cookies
   bootstrap: [AppComponent]
