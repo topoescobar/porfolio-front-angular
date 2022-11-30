@@ -1,0 +1,104 @@
+<section class="page-section portfolio bg-primary text-white" id="experiencia">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-white mb-0">Experiencia</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <h3 class="text-center">Trabajando actualmente</h3>
+            <div class="divider-custom divider-alone divider-light">
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Portfolio Item 1-->
+            <div class="col-md-6 col-lg-4 mb-5">
+                <h5 class="text-center">La Lombriz Urbana</h5>
+                <div class="portfolio-item mx-auto h-75 w-75" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i
+                                class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../../../assets/LLU.png" alt="..." />
+                </div>
+            </div>
+            <!-- Portfolio Item 2-->
+            <div class="col-md-6 col-lg-4 mb-5">
+                <h5 class="text-center">Fractal Labs</h5>
+                <div class="portfolio-item mx-auto h-75 w-75" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i
+                                class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../../../assets/fractal labs.png" alt="..." />
+                </div>
+            </div>
+            <!-- Portfolio Item 3-->
+            <div class="col-md-6 col-lg-4 mb-5">
+                <h5 class="text-center">ORAM - Observatorio rural</h5>
+                <div class="portfolio-item mx-auto h-75 w-75" data-bs-toggle="modal" data-bs-target="#portfolioModal3">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i
+                                class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../../../assets/oram.png" alt="..." />
+                </div>
+            </div>
+
+            <!--Lista de trabajos desde la BD-->
+            <h2>Experiencias anteriores (BD)</h2>
+            <div class="col lg 1"></div>
+            <div class="col-lg-11">
+                <table class="table">
+                    <tbody>
+                        <tr *ngFor="let trabajo of listaExp">
+                            <td>
+                                <h2>{{trabajo.nombreExp}}</h2>
+                            </td>
+                            <td>{{trabajo.descripcionExp}}</td>
+                            <td *ngIf="isLogged">
+                                <button class="btn btn-light" routerLink="/editexp/{{trabajo.id}}">  <!--ruta definida en approuting module--> 
+                                    <i class="bi bi-pencil-square">EDITAR</i> 
+                                </button>
+                            </td>
+                            <td *ngIf="isLogged">
+                                <button class="btn btn-danger" (click)="delete(trabajo.id)">
+                                    <i class="bi bi-trash-fill">BORRAR </i> 
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-dark" routerLink="/nuevaexp" *ngIf="isLogged">Agregar experiencia</button> 
+                    <!-- hay que configurar el path desde routing module para que /nuevaexp lleve al componente app-nueva-experiencia -->
+                </div>
+            </div>
+
+            
+
+            <!--Trabajos viejos-->
+            <h3 class="text-center">Trabajos anteriores</h3>
+            <div class="divider-custom divider-alone divider-light">
+                <div class="divider-custom-line"></div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
+                <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal4">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                        <div class="portfolio-item-caption-content text-center text-white"><i
+                                class="fas fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="assets/img/portfolio/game.png" alt="..." />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<app-modals></app-modals>

@@ -1,0 +1,2 @@
+comentado error y else en portfolio.component.ts
+EditarExperienciaComponent creo exp vacia
